@@ -1,9 +1,9 @@
 
 
-class Storage {
+class StorageBase {
 	constructor(authInfo) {
-		if(new.target === Storage) {
-			throw new Error('Storage is an abstract class');
+		if(new.target === StorageBase) {
+			throw new Error('StorageBase is an abstract class');
 		}
 		this.authInfo = authInfo;
 	}
@@ -15,5 +15,5 @@ class Storage {
 	}
 }
 
-module.exports = Storage;
+module.exports = StorageBase;
 

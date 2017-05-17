@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PostsContainer } from '../../containers/PostsContainer';
 import DropzoneComponent from 'react-dropzone-component';
 import StorageAWS from '../../utils/Storage/StorageAWS'
+import Tour from '../../utils/Tour/Tour'
 
 import { 
   AWS_ACCESS_KEY_ID,
@@ -46,7 +47,7 @@ class HomePage extends Component {
         fReader.readAsText(file, "UTF-8");
       }*/
 
-      let bucket = 'eajsfamilyportal';
+      /*let bucket = 'eajsfamilyportal';
       let fileinfos = [{Key:`public/${file.name}`, Body:file}];
       this.myStorageAWS.uploadFiles(bucket, fileinfos, function(err, data) {
         if(err) console.log(`Failed to uploadFiles:${err}`);
@@ -54,6 +55,26 @@ class HomePage extends Component {
           console.log(`Succeed to uploadFiles:${data[0].Key},`);
           console.log(data[0].Res);
         }
+      });*/
+
+      /*let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          console.log(xhr.responseText);
+          let response = JSON.parse(xhr.responseText);
+          console.log(response.tours[0]);
+        }
+      };
+      xhr.open('GET', "https://s3-ap-northeast-1.amazonaws.com/eajsfamilyportal/tours/config.json", true);
+      xhr.send();*/
+
+      let myTour = new Tour(this.myStorageAWS);
+      myTour.getTours("https://s3-ap-northeast-1.amazonaws.com/eajsfamilyportal/tours/config.json")
+      .then(function (data) {
+        console.log(data);
+        //let response = JSON.parse(xhr.responseText);
+      }).catch(function(err) {
+        console.log(`Failed to getTours:${err}`);
       });
       
       //console.log(this.dropzone.getQueuedFiles());

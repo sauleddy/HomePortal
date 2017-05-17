@@ -12,7 +12,7 @@ class Header extends Component {
       <div className="Header">
         <header
           className="intro-header"
-          style={{backgroundImage: 'url(https://homeportal.s3.amazonaws.com/album/post-sample-image.jpg)'}}>
+          style={{backgroundImage: 'url(cleanblog/img/post-sample-image.jpg)'}}>
             <div className="container">
               <div className="row">
                 <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
