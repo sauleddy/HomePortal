@@ -5,6 +5,10 @@ export const LoginPageState = Immutable.fromJS({
   password: '12345678'
 });
 
+export const HomePageState = Immutable.fromJS({
+  posts: []
+});
+
 export const UserState = Immutable.fromJS({
   email: '',
   name: '',

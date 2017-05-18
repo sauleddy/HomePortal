@@ -30,6 +30,20 @@ class HomePage extends Component {
     this.myStorageAWS = new StorageAWS(authInfo);
 
     this.dropzone = null;
+
+    /*let myTour = new Tour(this.myStorageAWS);
+      myTour.getTours("https://s3-ap-northeast-1.amazonaws.com/eajsfamilyportal/tours/config.json")
+      .then(function (data) {
+        console.log(data);
+        //let response = JSON.parse(xhr.responseText);
+      }).catch(function(err) {
+        console.log(`Failed to getTours:${err}`);
+    });*/
+  }
+
+  componentDidMount(node) {
+    console.log("[HomePage] componentDidMount");
+    this.props.onComponentDidMount(node);
   }
 
   handleFileAdded(file) {
@@ -68,14 +82,6 @@ class HomePage extends Component {
       xhr.open('GET', "https://s3-ap-northeast-1.amazonaws.com/eajsfamilyportal/tours/config.json", true);
       xhr.send();*/
 
-      let myTour = new Tour(this.myStorageAWS);
-      myTour.getTours("https://s3-ap-northeast-1.amazonaws.com/eajsfamilyportal/tours/config.json")
-      .then(function (data) {
-        console.log(data);
-        //let response = JSON.parse(xhr.responseText);
-      }).catch(function(err) {
-        console.log(`Failed to getTours:${err}`);
-      });
       
       //console.log(this.dropzone.getQueuedFiles());
   }
@@ -95,8 +101,6 @@ class HomePage extends Component {
   }
 
   render() {
-    var postPreviews= [{postTitle:"Post Title1" ,postSubTitle:"Post Subtitle1", postMeta:"Post Meta1"},{postTitle:"Post Title2" ,postSubTitle:"Post Subtitle2", postMeta:"Post Meta2"},{postTitle:"Post Title3" ,postSubTitle:"Post Subtitle3", postMeta:"Post Meta3"}]
-
     const config = this.componentConfig;
     const djsConfig = this.djsConfig;
 
@@ -107,14 +111,16 @@ class HomePage extends Component {
         removedfile: this.handleFileRemoved.bind(this)
     }
 
+    var tours = [{postTitle:"Post Title1" ,postSubTitle:"Post Subtitle1", postMeta:"Post Meta1"},{postTitle:"Post Title2" ,postSubTitle:"Post Subtitle2", postMeta:"Post Meta2"},{postTitle:"Post Title3" ,postSubTitle:"Post Subtitle3", postMeta:"Post Meta3"}]
 
     return (
       <div>
-				<DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
-
+				{/* 
+        <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
         <PostsContainer postPreviews={postPreviews}/>
+        */}
 
-
+        <PostsContainer postPreviews={this.props.posts}/>
 			</div>
     )
   }

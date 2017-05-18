@@ -1,1 +1,2 @@
-export { ApiUser } from './ApiUser';
+export { ApiUserIns } from './ApiUser';
+export { ApiStorageIns } from './ApiStorage';

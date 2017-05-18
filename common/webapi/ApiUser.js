@@ -22,7 +22,7 @@ class ApiUser extends ApiBase {
     super();
   }
 
-  static Login(dispatch, email, password) {
+  Login(dispatch, email, password) {
     // console.log('email:' + email + ', password:' + password);
 
     const title = 'Warning';
@@ -55,4 +55,6 @@ class ApiUser extends ApiBase {
   }
 };
 
-export { ApiUser }
+let ApiUserIns = new ApiUser();
+
+export { ApiUser, ApiUserIns }
