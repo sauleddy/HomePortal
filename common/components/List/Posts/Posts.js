@@ -38,7 +38,7 @@ class PostPreview extends Component {
     return (
       <div className="PostPreview">
         <div className="post-preview">
-          <a href="post.html">
+          <a role='button' onClick={this.props.onPostClick.bind(null, this.props.postId, this.props.postResource)}>
             <PostTitle postTitle={this.props.postTitle}/>
             <PostSubTitle postSubTitle={this.props.postSubTitle}/>
           </a>
@@ -54,10 +54,11 @@ class PostPreview extends Component {
 class PostPreviewList extends Component {
 
   render() {
+    let pplistThis = this;
     var postPreviews = this.props.postPreviews.map(function(item, index) {
       let meta = `Posted by ${item.author} on ${item.date}`
-      return <PostPreview key={item.key} postTitle={item.title} 
-        postSubTitle={item.subtitle} postMeta={meta} />;
+      return <PostPreview key={item.id} postId={item.postid} onPostClick={pplistThis.props.onPostClick} postTitle={item.title} 
+        postSubTitle={item.subtitle} postMeta={meta} postResource={item.resource}/>;
     });
     return (
       <div>
@@ -74,11 +75,11 @@ class Posts extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-              <PostPreviewList postPreviews={this.props.posts}/>
+              <PostPreviewList postPreviews={this.props.posts} onPostClick={this.props.onPostClick}/>
             </div>
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }

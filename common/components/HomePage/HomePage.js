@@ -15,7 +15,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-				<PostsContainer postPreviews={this.props.posts}/>
+				<PostsContainer />
 			</div>
     )
   }

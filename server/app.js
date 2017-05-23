@@ -1,12 +1,12 @@
-import Koa from 'koa'
-import json from 'koa-json'
-import bodyParser from 'koa-bodyparser'
-import logger from 'koa-logger'
+import Koa from 'koa';
+import json from 'koa-json';
+import bodyParser from 'koa-bodyparser';
+import logger from 'koa-logger';
 import session from 'koa-generic-session';
-import compress from 'koa-compress'
-import convert from 'koa-convert'
-const app = new Koa()
+import compress from 'koa-compress';
+import convert from 'koa-convert';
 
+const app = new Koa()
 
 /*var router = require('koa-router')();
 router.get('/auth/login', function *(next) {console.log('OOOOOOOOOOOOOOOO')});

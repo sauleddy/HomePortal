@@ -11,7 +11,7 @@ export default connect(
   }),
   (dispatch) => ({
     onComponentDidMount: (node) => (
-    	dispatch(ActionPosts.GetPosts(dispatch, 'tours'))
+    	dispatch(ActionPosts.GetPostMenu(dispatch))
     ),
   })
 )(HomePage);

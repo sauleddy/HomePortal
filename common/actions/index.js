@@ -1,5 +1,6 @@
 export { ActionLoginPage } from './ActionLoginPage';
 export { ActionHomePage } from './ActionHomePage';
-export { ActionUser } from './ActionUser';
+export { ActionPostPage } from './ActionPostPage';
+export { ActionAuth } from './ActionAuth';
 export { ActionModalNormal } from './ActionModalNormal';
 export { ActionPosts } from './ActionPosts';

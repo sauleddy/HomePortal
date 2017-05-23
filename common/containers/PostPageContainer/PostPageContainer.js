@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Footer from '../../components/Footer';
+import PostPage from '../../components/PostPage';
 
 export default connect(
   (state) => ({
   }),
   (dispatch) => ({
   })
-)(Footer);
+)(PostPage);
 
 

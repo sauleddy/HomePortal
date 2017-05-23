@@ -11,8 +11,9 @@ class Header extends Component {
     return (
       <div className="Header">
         <header
-          className="intro-header"
-          style={{backgroundImage: 'url(cleanblog/img/post-sample-image.jpg)'}}>
+          className="hero-image intro-header" role="banner"  
+          style={{backgroundImage: 'url(cleanblog/img/P_20160820_114604.jpg)'
+                , backgroundSize: '100% cover', overflow: 'hidden'}}>
             <div className="container">
               <div className="row">
                 <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">

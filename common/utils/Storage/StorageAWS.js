@@ -1,7 +1,7 @@
 
-import StorageBase from './StorageBase'
-import AWS from 'aws-sdk'
-import { Sleep } from '../Sleep'
+import { StorageBase } from './StorageBase';
+import AWS from 'aws-sdk';
+import { Sleep } from '../Sleep';
 
 class StorageAWS extends StorageBase {
 	
@@ -14,30 +14,33 @@ class StorageAWS extends StorageBase {
     });
 	}
 
-	async uploadFiles(bucket, fileinfos, fn) {
-		try {
-			let res = [];
-			let s3 = createS3(bucket);
-			for(let i=0; i<fileinfos.length; ++i) {
-				let resThis = await uploadFile(s3, fileinfos[i]);
-				// console.log(resThis);
-				res.push({Key:fileinfos[i].Key, Res:resThis});
-			}
-			fn(null, res);
-		} catch(e) {
-			fn(e);
-		}
+	async getFile(bucket, fileinfos) {
+		let s3 = createS3(bucket);
+		let res = await getFileInner(s3, bucket, fileinfos);
+		return res;
 	}
 
-	async deleteFiles(bucket, fileinfos, fn) {
-		try {
-			let s3 = createS3(bucket);
-			let resThis = await deleteFilesInner(s3, bucket, fileinfos);
+	async listFiles(bucket, fileinfos) {
+		let s3 = createS3(bucket);
+		let res = await listFilesInner(s3, fileinfos);
+		return res;
+	}
+
+	async uploadFiles(bucket, fileinfos) {
+		let res = [];
+		let s3 = createS3(bucket);
+		for(let i=0; i<fileinfos.length; ++i) {
+			let resThis = await uploadFile(s3, fileinfos[i]);
 			// console.log(resThis);
-			fn(null, resThis);
-		} catch(e) {
-			fn(e);
-		}	
+			res.push({Key:fileinfos[i].Key, Res:resThis});
+		}
+		return res;
+	}
+
+	async deleteFiles(bucket, fileinfos) {
+		let s3 = createS3(bucket);
+		let resThis = await deleteFilesInner(s3, bucket, fileinfos);
+		return resThis;	
 	}
 }
 
@@ -47,6 +50,28 @@ function createS3(bucket) {
     params: {Bucket: bucket}
   });
   return s3;
+}
+
+function getFileInner(s3, bucket, fileinfos) {
+	return new Promise(function (resolve, reject) {
+		var params = {
+		  Bucket: bucket,
+		  Key: fileinfos.Key
+		};
+		s3.getObject(params, function(err, data) {
+			if (err) reject(err);
+    	resolve(data);
+		});
+  });
+}
+
+function listFilesInner(s3, fileinfos) {
+	return new Promise(function (resolve, reject) {
+		s3.listObjects({Prefix: fileinfos.Key}, function(err, data) {
+			if (err) reject(err);
+    	resolve(data);
+		});
+  });
 }
 
 function uploadFile(s3, fileinfo) {
@@ -83,4 +108,4 @@ function deleteFilesInner(s3, bucket, fileinfos) {
   });
 }
 
-module.exports = StorageAWS;
+export { StorageAWS }

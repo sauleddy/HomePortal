@@ -8,16 +8,15 @@ class Post extends Component {
   
   render() {
     return (
-    	<div key={this.props.key} className="post-preview col-xs-10 no-gutter">
-    		<div>
-    			<h2>
-    				<a role='button' title={'The Animals'}>
-    					'The Animals'
-            </a>
-          </h2>
+    	<article>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div dangerouslySetInnerHTML={{__html: this.props.innerBody}}></div>
+            </div>
+          </div>
         </div>
-        <p>'This is my introductions'</p>
-			</div>
+      </article>
     );
   }
 }

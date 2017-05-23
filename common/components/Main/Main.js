@@ -7,6 +7,10 @@ import FooterContainer from '../../containers/FooterContainer';
 import ModalNormalContainer from '../../containers/ModalNormalContainer';
 import actions from '../../actions'
 
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
+
+
 class Main extends Component {
     constructor() {
         super()

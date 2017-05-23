@@ -9,6 +9,10 @@ export const HomePageState = Immutable.fromJS({
   posts: []
 });
 
+export const PostPageState = Immutable.fromJS({
+  post: {}
+});
+
 export const UserState = Immutable.fromJS({
   email: '',
   name: '',
@@ -21,4 +25,29 @@ export const ModalNormalState = Immutable.fromJS({
   title: '',
   content: ''
 });
+
+import {
+  STATUS_OK
+} from '../constants/Status';
+
+export const ModalResponse = Immutable.fromJS({
+  status: STATUS_OK,
+  data: {}
+});
+
+
+export const ModalPostMenu = Immutable.fromJS({
+  posts: []
+});
+
+export const ModalPostInfo = Immutable.fromJS({
+  title: '',
+  subtitle: '',
+  date: '',
+  author: '',
+  postid: '',
+  imageurl: '',
+  resource: ''
+});
+
 

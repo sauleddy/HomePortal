@@ -4,7 +4,7 @@ import LoginPage from '../../components/LoginPage';
 
 import { 
   ActionLoginPage,
-  ActionUser
+  ActionAuth
 } from '../../actions';
 
 export default connect(
@@ -20,7 +20,7 @@ export default connect(
       dispatch(ActionLoginPage.SetPw({ value: event.target.value }))
     ),
     onLoginClick: (email, password) => () => (
-      dispatch(ActionUser.AuthStart(dispatch, email, password))
+      dispatch(ActionAuth.AuthStart(dispatch, email, password))
       // dispatch(showSpinner())
     ),
   }),

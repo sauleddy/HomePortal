@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import Modal from 'react-modal';
+
 
 class ModalNormal extends Component {
 
@@ -8,19 +10,16 @@ class ModalNormal extends Component {
   }
 
   render() {
-    
     return (
-      <div className="animated fadeIn">
-        <Modal isOpen={this.props.visible} className={this.props.className}>
-          <ModalHeader>{this.props.title}</ModalHeader>
-          <ModalBody>
-            {this.props.content}
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.props.onOkClick}>OK</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
+      <Modal isOpen={this.props.visible} className="modal-primary">
+        <ModalHeader>{this.props.title}</ModalHeader>
+        <ModalBody>
+          {this.props.content}
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={this.props.onOkClick}>OK</Button>
+        </ModalFooter>
+      </Modal>
     )
   }
 }

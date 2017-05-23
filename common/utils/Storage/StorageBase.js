@@ -8,12 +8,14 @@ class StorageBase {
 		this.authInfo = authInfo;
 	}
 
-	upload(bucket, filepath, files) {
+	async getFiles(bucket, fileinfos, fn) {
 	}
 
-	delete(bucket, filepath, files) {
+	async uploadFiles(bucket, fileinfos, fn) {
+	}
+
+	async deleteFiles(bucket, fileinfos, fn) {
 	}
 }
 
-module.exports = StorageBase;
-
+export { StorageBase }

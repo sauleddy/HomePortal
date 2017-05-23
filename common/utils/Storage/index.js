@@ -1,0 +1,1 @@
+export { StorageAWS } from './StorageAWS';
