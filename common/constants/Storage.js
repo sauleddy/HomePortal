@@ -3,5 +3,6 @@ export default {
   AWS_BUCKET: 'eajsfamilyportal',
   AWS_RESOURCE_DIR: 'resource',
   GOOGLEDRIVE_POST_MENU_ID: '14DCSOPFJRba9wiF5yrZGMyRenNS0PIPr8Y2McRrxtNk',
-  GOOGLEDRIVE_DOCS_URL: 'https://docs.google.com/feeds/download/documents/export/Export?id='
+  GOOGLEDRIVE_DOCS_URL: 'https://docs.google.com/document/d/${docsid}/pub'
+  // GOOGLEDRIVE_DOCS_URL: 'https://docs.google.com/feeds/download/documents/export/Export?id='
 }

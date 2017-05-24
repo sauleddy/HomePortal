@@ -1,9 +1,14 @@
 import compose from 'koa-compose'
 import Router from 'koa-router'
 
-const router = new Router({prefix: '/auth'})
+import { 
+  API_TYPE_AUTH,
+  API_CMD_LOGIN
+} from '../../common/constants/Apis';
 
-router.post('/login', async function(ctx, next) {
+const router = new Router({prefix: API_TYPE_AUTH})
+
+router.post(API_CMD_LOGIN, async function(ctx, next) {
 	console.log(ctx.request);
 
   console.log(ctx.request.body.email);
@@ -39,10 +44,6 @@ router.post('/login', async function(ctx, next) {
   });*/
 
 	//ctx.body = String(Math.PI);
-});
-
-router.get('/logout', async function(ctx, next) {
-	ctx.body = String(Math.PI - 2);
 });
 
 export default router

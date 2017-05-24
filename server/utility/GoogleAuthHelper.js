@@ -1,6 +1,6 @@
 var google = require('googleapis');
 
-class GoogleAuth {
+class GoogleAuthHelper {
   /*
     [IN]
     authInfo
@@ -46,4 +46,4 @@ class GoogleAuth {
 
 }
 
-export { GoogleAuth }
+export { GoogleAuthHelper }

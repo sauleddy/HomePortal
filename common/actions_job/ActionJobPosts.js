@@ -33,6 +33,10 @@ import {
   GOOGLEDRIVE_POST_MENU_ID
 } from '../constants/Storage';
 
+import {
+  API_UTILITY_GET_GOOGLE_DOCS
+} from '../constants/Apis';
+
 class ActionJobPosts extends ActionJobBase {
   constructor() {
     super();
@@ -59,16 +63,23 @@ class ActionJobPosts extends ActionJobBase {
   GetPost(dispatch, postid, resource) {
     console.log(`[ActionJobPosts] GetPost postid:${postid} resource:${resource}`);
 
-    this.PostHelper.getPostContent({contentkey: postid, imagekey:resource})
+    let result = {status: STATUS_OK, post: {}};
+    result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${postid}`;
+    result.post.imgs = [];
+    dispatch(ActionPostPage.Update({ post: result.post }));
+    browserHistory.push('/post');
+    
+    /*this.PostHelper.getPostContent({contentkey: postid, imagekey:resource})
     .then(function (response) {
       console.log(response);
       if(response.status == STATUS_OK) {
         browserHistory.push('/post');
+        
         dispatch(ActionPostPage.Update({ post: response.post }));
       } else {
         dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
       }
-    });
+    });*/
   }
 
 };

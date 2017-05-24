@@ -2,7 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import Router from 'koa-router'
 
-const router = new Router({prefix: '/api'})
+import { 
+  API_ROOT
+} from '../../common/constants/Apis';
+
+const router = new Router({prefix: API_ROOT})
 
 let subRouter;
 
