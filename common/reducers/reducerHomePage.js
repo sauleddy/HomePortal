@@ -8,8 +8,10 @@ import {
 
 const reducerHomePage = handleActions({
 	HOME_PAGE_UPDATE_POSTS: (state, {payload}) => (
-		state.set('posts', payload.posts)
-  )
+		state.merge({
+      posts: payload.posts
+    })
+	)
 }, HomePageState);
 
 export default reducerHomePage;

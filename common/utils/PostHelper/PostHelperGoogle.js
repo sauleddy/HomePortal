@@ -10,6 +10,7 @@ import {
 
 import {
   STATUS_OK,
+  STATUS_FAILED,
   STATUS_EXEPTION
 } from '../../constants/Status';
 
@@ -30,10 +31,9 @@ class PostHelperGoogle extends PostHelperBase {
 	}
 
 	async getPostMenu(postInfo) {
-		let response = ModalPostMenu.toJS();
+		let response = { status: STATUS_OK, posts:{} };
 		let resPostApi = await this.httpHelper.PostApi(
 			{url: API_UTILITY_GET_GOOGLE_SPREADSHEETS, params: {key: postInfo.key}});
-		// console.log(resPostApi)
 		response.status = resPostApi.status;
 		if(resPostApi.status == STATUS_OK) {
 			response.posts = resPostApi.data;
@@ -42,6 +42,21 @@ class PostHelperGoogle extends PostHelperBase {
 		}
 		return response;
 	}
+
+	async getPostResources(postInfo) {
+		let response = { status: STATUS_OK, post:{ imgs: [] } };
+		let key = `${AWS_RESOURCE_DIR}/${postInfo.imagekey}`;
+		let files = await this.myStorage.listFiles(AWS_BUCKET, {Key: key});
+		// console.log(files);
+		for(let i=0; i<files.Contents.length; ++i) {
+			// console.log(files.Contents[i]);
+	  	if(!files.Contents[i].Key.endsWith("/")) {
+	  		response.post.imgs.push(`${AWS_URL}${AWS_BUCKET}/${files.Contents[i].Key}`);
+	  	} 
+	  }
+		return response;
+	}
+
 }
 
 export { PostHelperGoogle }

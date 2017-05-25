@@ -55,11 +55,19 @@ class PostPreviewList extends Component {
 
   render() {
     let pplistThis = this;
-    var postPreviews = this.props.postPreviews.map(function(item, index) {
-      let meta = `Posted by ${item.author} on ${item.date}`
-      return <PostPreview key={item.id} postId={item.postid} onPostClick={pplistThis.props.onPostClick} postTitle={item.title} 
-        postSubTitle={item.subtitle} postMeta={meta} postResource={item.resource}/>;
-    });
+    var postPreviews = [];
+    if(this.props.postPreviews.size > 0) {
+      var values = [];
+      this.props.postPreviews.forEach(function(value, key) {
+        values.push(value);
+      });
+      postPreviews = values.map(function(item, index) {
+        let meta = `Posted by ${item.get('author')} on ${item.get('date')}`
+        return <PostPreview key={item.get('id')} postId={item.get('postid')} 
+        onPostClick={pplistThis.props.onPostClick} postTitle={item.get('title')} 
+        postSubTitle={item.get('subtitle')} postMeta={meta} postResource={item.get('resource')}/>;
+      });
+    }
     return (
       <div>
         {postPreviews}

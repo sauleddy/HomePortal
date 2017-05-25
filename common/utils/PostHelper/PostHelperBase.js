@@ -19,10 +19,10 @@ class PostHelperBase {
 
 		[OUT]
 		status: status_code,
-		posts: [
-			{title: '', subtitle: '', date: '', author: '', postid: '', imageurl: '', resource: ''},
+		posts: {
+			id: {title: '', subtitle: '', date: '', author: '', postid: '', imageurl: '', resource: ''},
 			...
-		]
+		}
 	*/
 	async getPostMenu(postInfo) {
 	}
@@ -40,8 +40,7 @@ class PostHelperBase {
 		status: status_code,
 		post : {html: '', imgs: ['', '', '', ...]}
 	*/
-	async getPostContent(postInfo) {
-
+	async getPostResources(postInfo) {
 	}
 
 }

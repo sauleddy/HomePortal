@@ -63,23 +63,19 @@ class ActionJobPosts extends ActionJobBase {
   GetPost(dispatch, postid, resource) {
     console.log(`[ActionJobPosts] GetPost postid:${postid} resource:${resource}`);
 
-    let result = {status: STATUS_OK, post: {}};
-    result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${postid}`;
-    result.post.imgs = [];
-    dispatch(ActionPostPage.Update({ post: result.post }));
-    browserHistory.push('/post');
-    
-    /*this.PostHelper.getPostContent({contentkey: postid, imagekey:resource})
+    this.PostHelper.getPostResources({contentkey: postid, imagekey:resource})
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       if(response.status == STATUS_OK) {
+        let result = {status: STATUS_OK, post: {}};
+        result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${postid}`;
+        result.post.imgs = response.post.imgs;
+        dispatch(ActionPostPage.Update({ post: result.post }));
         browserHistory.push('/post');
-        
-        dispatch(ActionPostPage.Update({ post: response.post }));
       } else {
         dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
       }
-    });*/
+    });
   }
 
 };
