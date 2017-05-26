@@ -60,6 +60,8 @@
     "redux": "^3.6.0",
     "redux-actions": "^2.0.2",
     "redux-persist": "^4.8.0",
+    "redux-persist-immutable": "^4.3.0",
+    "redux-persist-transform-immutable": "^4.3.0",
     "redux-thunk": "^2.1.0",
     "sleep": "^5.1.1",
     "superagent": "^3.3.1",
@@ -109,10 +111,10 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.9.1"
   },
-  "author": "Chikara Chan",
+  "author": "Ed Hsu",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chikara-chan/react-isomorphic.git"
+    "url": "https://github.com/sauleddy/HomePortal"
   },
   "license": "MIT"
 }
