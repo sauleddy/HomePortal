@@ -51,7 +51,8 @@ module.exports = {
         }, {
             test: /\.html$/,
             loader: 'html?minimize=false'
-        }]
+        }],
+        noParse: /node_modules\/reactstrap-tether\/dist\/js\/tether.js/
     },
     resolve: {extensions: ['', '.js', '.json', '.scss']},
     plugins: [

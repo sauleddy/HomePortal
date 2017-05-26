@@ -6,6 +6,8 @@ const path = require('path'),
     ExtractTextPlugin = require('extract-text-webpack-plugin')
 let clientConfig, serverConfig
 
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 function getExternals() {
     return fs.readdirSync(path.resolve(__dirname, '../node_modules'))
         .filter(filename => !filename.includes('.bin'))
@@ -67,7 +69,7 @@ clientConfig = {
             names: ['vendor', 'manifest'],
             filename: '[name].[chunkhash:8].js'
         }),
-        new webpack.optimize.UglifyJsPlugin({
+        new UglifyJSPlugin({
             compress: {warnings: false},
             comments: false
         }),
@@ -123,7 +125,7 @@ serverConfig = {
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
+        new UglifyJSPlugin({
             compress: {warnings: false},
             comments: false
         }),
