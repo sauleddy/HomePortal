@@ -38,7 +38,7 @@ class PostHelperBase {
 
 		[OUT]
 		status: status_code,
-		post : {html: '', imgs: ['', '', '', ...]}
+		post : {html: '', resource: [{img: '', thumbnail: ''}, ...] }
 	*/
 	async getPostResources(postInfo) {
 	}

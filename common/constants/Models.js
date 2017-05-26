@@ -10,7 +10,7 @@ export const HomePageState = Immutable.fromJS({
 });
 
 export const PostPageState = Immutable.fromJS({
-  post: {}
+  post: {docsUrl: '', resource: []}
 });
 
 export const UserState = Immutable.fromJS({

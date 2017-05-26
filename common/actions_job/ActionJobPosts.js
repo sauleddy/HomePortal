@@ -69,7 +69,7 @@ class ActionJobPosts extends ActionJobBase {
       if(response.status == STATUS_OK) {
         let result = {status: STATUS_OK, post: {}};
         result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${postid}`;
-        result.post.imgs = response.post.imgs;
+        result.post.resource = response.post.resource;
         dispatch(ActionPostPage.Update({ post: result.post }));
         browserHistory.push('/post');
       } else {
