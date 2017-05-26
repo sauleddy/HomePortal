@@ -65,10 +65,10 @@ clientConfig = {
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
+        /*new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest'],
             filename: '[name].[chunkhash:8].js'
-        }),
+        }),*/
         new UglifyJSPlugin({
             compress: {warnings: false},
             comments: false
