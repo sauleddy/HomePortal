@@ -8,6 +8,8 @@ import { fromJS } from 'immutable';
 
 console.log(window.REDUX_STATE);
 
+localStorage.setItem('homeportal', JSON.stringify(window.REDUX_STATE));
+
 for(let key in window.REDUX_STATE){
   // console.log(key);
   // console.log(window.REDUX_STATE[key]);
@@ -15,14 +17,18 @@ for(let key in window.REDUX_STATE){
 }
 const store = configureStore(window.REDUX_STATE);
 console.log(store.getState());
+
+let data = JSON.parse(localStorage.getItem('homeportal'));
+console.log(data);
+
 //console.log(store.getState()['loginPage'].get('email'));
 //console.log(store.getState()['loginPage'].get('email'));
 
 match({history: browserHistory, routes}, (error, redirectLocation, renderProps) => {
-    render(
-        <Provider store={store}>
-            <Router {...renderProps}/>
-        </Provider>,
-        document.getElementById('root')
-    )
+  render(
+      <Provider store={store}>
+          <Router {...renderProps}/>
+      </Provider>,
+      document.getElementById('root')
+  )
 })

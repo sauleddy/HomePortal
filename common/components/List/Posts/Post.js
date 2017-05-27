@@ -194,7 +194,7 @@ class Post extends Component {
                 </div>
               </div>
             </div>
-            {/*this.renderGallery()*/}
+            {this.renderGallery()}
             <Lightbox
               currentImage={this.state.currentImage}
               images={this.images}

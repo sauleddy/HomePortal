@@ -4,31 +4,49 @@ import rootReducer from '../reducers'
 // import createLogger from 'redux-logger';
 import DevTools from '../utils/DevTools'
 import Immutable from 'immutable';
-import {persistStore, autoRehydrate} from 'redux-persist';
-import immutableTransform from 'redux-persist-transform-immutable'
+// import persistState, {mergePersistedState} from 'redux-localstorage';
+// import { serialize, deserialize } from 'redux-localstorage-immutable';
+import { save, load } from 'redux-localstorage-simple';
 
 // const initialState = Immutable.Map();
 // export default function configureStore(preloadedState = initialState) {
 export default function configureStore(preloadedState) {
 
-    const store = createStore(
-        rootReducer,
-        preloadedState,
-        compose(
-          applyMiddleware(thunk),
-          autoRehydrate(),
-          DevTools.instrument()
-        )
-    )
-    // persistStore(store);
+  let store;
 
-    if (module.hot) {
-      module.hot.accept('../reducers', () => {
-          const nextRootReducer = require('../reducers')
+  if(typeof(localStorage) !== 'undefined')
+  {
+    const createStoreWithMiddleware 
+      = applyMiddleware(
+        thunk,
+        save({ states: ["postPage"] })
+      )(createStore);
 
-          store.replaceReducer(nextRootReducer)
-      })
-    }
+    store = createStoreWithMiddleware(
+      rootReducer, 
+      load({ states: ["postPage"], immutablejs: true }),
+      DevTools.instrument()
+    ) 
+    
+  } else {
+    const enhancer = compose(
+      applyMiddleware(thunk),
+      DevTools.instrument(),
+    );
+    
+    store = createStore(
+      rootReducer,
+      preloadedState,
+      enhancer
+    );  
+  }
+  
+  if (module.hot) {
+    module.hot.accept('../reducers', () => {
+        const nextRootReducer = require('../reducers')
 
-    return store;
+        store.replaceReducer(nextRootReducer)
+    })
+  }
+  return store;
 }
