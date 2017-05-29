@@ -4,8 +4,6 @@ import rootReducer from '../reducers'
 // import createLogger from 'redux-logger';
 import DevTools from '../utils/DevTools'
 import Immutable from 'immutable';
-// import persistState, {mergePersistedState} from 'redux-localstorage';
-// import { serialize, deserialize } from 'redux-localstorage-immutable';
 import { save, load } from 'redux-localstorage-simple';
 
 // const initialState = Immutable.Map();

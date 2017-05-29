@@ -94,9 +94,7 @@ class Post extends Component {
     const images = this.images;
 
     if (!images) return;
-
-    // console.log(images);
-
+    
     const gallery = images.map((obj, i) => {
       return (
         <a
@@ -114,7 +112,7 @@ class Post extends Component {
     // console.log(gallery);
 
     return (
-      <div className={css(classes.gallery)}>
+      <div>
         {gallery}
       </div>
     );

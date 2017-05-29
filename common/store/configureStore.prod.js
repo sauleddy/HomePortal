@@ -1,19 +1,35 @@
 import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
-// import {persistStore, autoRehydrate} from 'redux-persist';
+import { save, load } from 'redux-localstorage-simple';
 
 export default function configureStore(preloadedState) {
-    const store = createStore(
-        rootReducer,
-        preloadedState,
-        compose(
-          applyMiddleware(thunk)
-          // autoRehydrate(),
-        )
-    )
+    let store;
 
-    // persistStore(store);
+    if(typeof(localStorage) !== 'undefined')
+    {
+        const createStoreWithMiddleware 
+          = applyMiddleware(
+            thunk,
+            save({ states: ["postPage"] })
+          )(createStore);
 
-    return store
+        store = createStoreWithMiddleware(
+          rootReducer, 
+          load({ states: ["postPage"], immutablejs: true }),
+        ) 
+
+    } else {
+        const enhancer = compose(
+          applyMiddleware(thunk),
+        );
+
+        store = createStore(
+          rootReducer,
+          preloadedState,
+          enhancer
+        );  
+    }
+
+    return store;
 }
