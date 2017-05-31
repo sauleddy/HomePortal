@@ -2,11 +2,7 @@ import { ActionJobBase } from './ActionJobBase';
 import { StorageAWS } from '../utils/Storage';
 import { PostHelperGoogle } from '../utils/PostHelper';
 import { browserHistory } from 'react-router';
-
-import { 
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY
-} from '../constants/Credential';
+import { HttpHelper } from '../utils/HttpHelper';
 
 import {
   AWS_URL,
@@ -34,22 +30,50 @@ import {
 } from '../constants/Storage';
 
 import {
-  API_UTILITY_GET_GOOGLE_DOCS
+  API_UTILITY_GET_GOOGLE_DOCS,
+  API_UTILITY_GET_CREDENTIAL
 } from '../constants/Apis';
 
 class ActionJobPosts extends ActionJobBase {
   constructor() {
     super();
-
-    let authInfo = { accessKeyId:AWS_ACCESS_KEY_ID, secretAccessKey:AWS_SECRET_ACCESS_KEY };
-    this.myStorage = new StorageAWS(authInfo);
-    this.PostHelper = new PostHelperGoogle(this.myStorage);
   }
 
-  GetPostMenu(dispatch) {
+  async InitHelper() {
+    if(this.myStorage === undefined || this.PostHelper === undefined) {
+      try {
+        let response = await getCredential();
+        console.log(response);
+        if(response) {
+          let authInfo = { accessKeyId:response.credential.aws_access_key_id
+            , secretAccessKey:response.credential.aws_secret_access_key };
+          console.log(authInfo);
+          this.myStorage = new StorageAWS(authInfo);
+          this.PostHelper = new PostHelperGoogle(this.myStorage);  
+        }
+      } catch (e) {
+        console.log(`[ActionJobPosts.js] InitHelper exception`);
+      }
+    }
+  }
+
+  async GetPostMenu(dispatch) {
     // console.log(`[ApiStorage] GetPostMenu`);
     
-    this.PostHelper.getPostMenu({key: GOOGLEDRIVE_POST_MENU_ID})
+    try {
+      await this.InitHelper();
+      let response = await this.PostHelper.getPostMenu({key: GOOGLEDRIVE_POST_MENU_ID});
+      // console.log(response);
+      if(response.status == STATUS_OK) {
+        dispatch(ActionHomePage.UpdatePosts({ posts: response.posts }));
+      } else {
+        dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
+      }
+    } catch (e) {
+      console.log(`[ActionJobPosts.js] GetPostMenu exception`);
+    }
+
+    /*this.PostHelper.getPostMenu({key: GOOGLEDRIVE_POST_MENU_ID})
     .then(function (response) {
       // console.log(response);
       if(response.status == STATUS_OK) {
@@ -57,13 +81,30 @@ class ActionJobPosts extends ActionJobBase {
       } else {
         dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
       }
-    });
+    });*/
   }
 
-  GetPost(dispatch, postid, resource) {
+  async GetPost(dispatch, postid, resource) {
     console.log(`[ActionJobPosts] GetPost postid:${postid} resource:${resource}`);
 
-    this.PostHelper.getPostResources({contentkey: postid, imagekey:resource})
+    try {
+      await this.InitHelper();
+      let response = await this.PostHelper.getPostResources({contentkey: postid, imagekey:resource});
+      // console.log(response);
+      if(response.status == STATUS_OK) {
+        let result = {status: STATUS_OK, post: {}};
+        result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${postid}`;
+        result.post.resource = response.post.resource;
+        dispatch(ActionPostPage.Update({ post: result.post }));
+        browserHistory.push('/post');
+      } else {
+        dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
+      }
+    } catch (e) {
+      console.log(`[ActionJobPosts.js] GetPost exception`);
+    }
+
+    /*this.PostHelper.getPostResources({contentkey: postid, imagekey:resource})
     .then(function (response) {
       // console.log(response);
       if(response.status == STATUS_OK) {
@@ -75,10 +116,24 @@ class ActionJobPosts extends ActionJobBase {
       } else {
         dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
       }
-    });
+    });*/
   }
 
 };
+
+async function getCredential() {
+  let httpHelper = new HttpHelper();
+  let response = { status: STATUS_OK, credential:{} };
+  let resPostApi = await httpHelper.PostApi(
+    {url: API_UTILITY_GET_CREDENTIAL, params: {}});
+  response.status = resPostApi.status;
+  if(resPostApi.status == STATUS_OK) {
+    response.credential = resPostApi.data;
+  } else {
+    console.log(`[ActionJobPosts.js] Failed to getCredential:${resPostApi.status}`);
+  }
+  return response;
+}
 
 let ActionJobPostsIns = new ActionJobPosts();
 

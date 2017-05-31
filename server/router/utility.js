@@ -2,14 +2,15 @@ import compose from 'koa-compose'
 import Router from 'koa-router'
 import HTMLtoJSX from 'htmltojsx'
 import gsjson from 'google-spreadsheet-to-json';
-import { GoogleAuthHelper, GoogleDocsHelper } from '../utility';
+import { GoogleAuthHelper, GoogleDocsHelper, CredentialHelper } from '../utility';
 
 import {
 	API_TYPE_UTILITY,
 	API_CMD_HTML_TO_JSX,
 	API_CMD_GET_GOOGLE_SPREADSHEETS,
 	API_CMD_GET_GOOGLE_DOCS,
-	API_CMD_GET_GOOGLE_AUTH
+	API_CMD_GET_GOOGLE_AUTH,
+	API_CMD_GET_CREDENTIAL
 } from '../../common/constants/Apis';
 
 const router = new Router({prefix: API_TYPE_UTILITY})
@@ -60,6 +61,13 @@ router.get(API_CMD_GET_GOOGLE_AUTH, async function(ctx, next) {
 	if(code) {
 		let drive = myGoogleAuth.GetAuthDrive(code);
 	}
+});
+
+router.post(API_CMD_GET_CREDENTIAL, async function(ctx, next) {
+	let myCredentialHelper = new CredentialHelper();
+	let credential = await myCredentialHelper.GetCredential();
+  // console.log(credential);
+	ctx.response.body = credential;
 });
 
 export default router

@@ -30,3 +30,4 @@ chrome-user-data
 *.swp
 *.swo
 common/constants/Credential.js
+.env
