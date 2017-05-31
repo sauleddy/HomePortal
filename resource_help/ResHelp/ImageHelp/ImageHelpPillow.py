@@ -14,7 +14,7 @@ else:
 __author__ = 'Ed Hsu'
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(asctime)s %(levelname)s [%(filename)s-%(funcName)s()]'
     ' %(message)s',
     datefmt='%m-%d %H:%M')
@@ -26,16 +26,16 @@ class ImageHelpPillow(ImageHelpBase):
 
     @classmethod
     def resize_by_long_side(cls, length, quality, src_img, target_img):
-        logging.info('''
+        logging.debug('''
         srcFile:{}
         targetFile:{}
         length:{}'''.format(src_img, target_img, length))
         try:
             img = Image.open(src_img)
             width, height = img.size
-            logging.info('''image size:{} X {}'''.format(width, height))
+            logging.debug('''image size:{} X {}'''.format(width, height))
             new_size = cls.calculate_size((width, height), length)
-            logging.info(
+            logging.debug(
                 '''new image size:{} X {}'''.format(
                     new_size[0], new_size[1]))
             # img.thumbnail((new_size[0], new_size[1]), Image.ANTIALIAS)

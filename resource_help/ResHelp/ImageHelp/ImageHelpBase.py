@@ -23,7 +23,7 @@ class ImageHelpBase(metaclass=ABCMeta):
             length_long = size_image[1]
             length_short = size_image[0]
         factor = length_long / length
-        logging.info('''factor:{}'''.format(factor))
+        logging.debug('''factor:{}'''.format(factor))
         length_long_new = length
         length_short_new = int(round(length_short / factor))
         if size_image[0] >= size_image[1]:

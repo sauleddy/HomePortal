@@ -100,3 +100,4 @@ ENV/
 
 # credential file
 credential.cfg
+credential.py
