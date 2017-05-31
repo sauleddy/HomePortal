@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import logging
 import os
 import sys
@@ -6,7 +9,7 @@ import credential
 from ResHelp.ResHelp import ResHelp
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.WARNING,
     format='%(asctime)s %(levelname)s [%(filename)s-%(funcName)s()]'
     ' %(message)s',
     datefmt='%m-%d %H:%M')
@@ -17,7 +20,7 @@ dict_credential = {
 myResHelp = ResHelp(dict_credential)
 configFile = os.path.join(os.path.dirname(__file__), 'main.cfg')
 config = configparser.ConfigParser()
-config.read(configFile)
+config.read(configFile, encoding = 'utf8')
 srcDir = config['MAIN']['IMAGES']
 logging.info('''image_dir {}'''.format(srcDir))
 
