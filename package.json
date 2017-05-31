@@ -2,6 +2,10 @@
   "name": "react-isomorphic-boilerplate",
   "version": "1.0.0",
   "description": "An universal React isomorphic boilerplate for building server-side render web app",
+  "engines": {
+    "node": "7.4.0",
+    "npm": "4.0.5"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon ./server/server.dev.js --watch server --watch build",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js --progress",
