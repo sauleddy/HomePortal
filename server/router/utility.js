@@ -49,7 +49,7 @@ router.get(`${API_CMD_GET_GOOGLE_DOCS}/:docsid`, async function(ctx, next) {
 	}
 });
 
-import { 
+/*import { 
   GOOGLE_DRIVE_CLIENT_ID,
   GOOGLE_DRIVE_CLIENT_SECRET
 } from '../../common/constants/Credential';
@@ -61,7 +61,7 @@ router.get(API_CMD_GET_GOOGLE_AUTH, async function(ctx, next) {
 	if(code) {
 		let drive = myGoogleAuth.GetAuthDrive(code);
 	}
-});
+});*/
 
 router.post(API_CMD_GET_CREDENTIAL, async function(ctx, next) {
 	let myCredentialHelper = new CredentialHelper();
