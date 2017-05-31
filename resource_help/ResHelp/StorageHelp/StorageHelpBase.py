@@ -4,13 +4,17 @@
 ' this is a base class for StorageHelp '
 
 from abc import ABCMeta, abstractmethod
+import copy
 
 __author__ = 'Ed Hsu'
 
 
 class StorageHelpBase(metaclass=ABCMeta):
+    def __init__(self, credential):
+        self.credential = copy.copy(credential)
+
     @abstractmethod
-    def upload(self):
+    def upload(self, bucket, src_file, target_file):
         pass
 
 

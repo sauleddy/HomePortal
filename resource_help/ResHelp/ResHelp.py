@@ -25,6 +25,9 @@ class ResHelp(ResHelpBase):
             target_image = os.path.join(target_dir, filename)
             self.myImageHelp.resize_by_long_side(length, quality, src_image, target_image)
 
+    def upload_images(self, src_dir, target_dir):
+        pass
+
 
 if __name__ == '__main__':
     myImageHelp = ImageHelpPillow()
@@ -33,5 +36,5 @@ if __name__ == '__main__':
     srcDir = os.path.join(os.path.dirname(__file__), 'res')
     thumbnailDir = os.path.join(os.path.dirname(__file__), 'res', 'thumbnail')
     originDir = os.path.join(os.path.dirname(__file__), 'res', 'origin')
-    myResHelp.resize_images(1920, 90, srcDir, originDir)
-    myResHelp.resize_images(300, 100, srcDir, thumbnailDir)
+    # myResHelp.resize_images(1920, 90, srcDir, originDir)
+    # myResHelp.resize_images(300, 100, srcDir, thumbnailDir)

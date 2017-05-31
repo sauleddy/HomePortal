@@ -23,6 +23,10 @@ class ResHelpBase(metaclass=ABCMeta):
     def resize_images(self, length, quality, src_dir, target_dir):
         pass
 
+    @abstractmethod
+    def upload_images(self, src_dir, target_dir):
+        pass
+
 
 if __name__ == '__main__':
     pass
