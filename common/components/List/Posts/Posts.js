@@ -63,7 +63,7 @@ class PostPreviewList extends Component {
       });
       postPreviews = values.map(function(item, index) {
         let meta = `Posted by ${item.get('author')} on ${item.get('date')}`
-        return <PostPreview key={item.get('id')} postId={item.get('postid')} 
+        return <PostPreview key={item.get('postid')} postId={item.get('postid')} 
         onPostClick={pplistThis.props.onPostClick} postTitle={item.get('title')} 
         postSubTitle={item.get('subtitle')} postMeta={meta} postResource={item.get('resource')}/>;
       });

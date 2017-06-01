@@ -28,7 +28,8 @@ router.post(API_CMD_HTML_TO_JSX, async function(ctx, next) {
 router.post(API_CMD_GET_GOOGLE_SPREADSHEETS, async function(ctx, next) {
 	// console.log(ctx.request.body);
 	try {
-		let result = await gsjson({spreadsheetId: ctx.request.body.key, hash: 'id'});
+		let result = await gsjson({spreadsheetId: ctx.request.body.key, hash: 'postid'});
+		console.log(result);
 		ctx.response.body = result;	
 	} catch(e) {
 		console.log(`[utility.js] Failed to getGoogleSpreadSheets:`);

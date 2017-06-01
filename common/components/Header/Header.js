@@ -12,7 +12,7 @@ class Header extends Component {
       <div className="Header">
         <header
           className="hero-image intro-header" role="banner"  
-          style={{backgroundImage: 'url(cleanblog/img/P_20160820_114604.jpg)'
+          style={{backgroundImage: 'url(cleanblog/img/home.jpg)'
                 , backgroundSize: '100% cover', overflow: 'hidden'}}>
             <div className="container">
               <div className="row">

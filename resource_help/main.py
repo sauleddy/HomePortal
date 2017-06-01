@@ -20,7 +20,7 @@ dict_credential = {
 myResHelp = ResHelp(dict_credential)
 configFile = os.path.join(os.path.dirname(__file__), 'main.cfg')
 config = configparser.ConfigParser()
-config.read(configFile, encoding = 'utf8')
+config.read(configFile, encoding='utf8')
 srcDir = config['MAIN']['IMAGES']
 logging.info('''image_dir {}'''.format(srcDir))
 
@@ -39,4 +39,3 @@ myResHelp.upload_images(credential.AWS_BUCKET_HOME_PORTAL,
 targetOriginDir = 'resource/{}/origin'.format(resourceKey)
 myResHelp.upload_images(credential.AWS_BUCKET_HOME_PORTAL,
                         originDir, targetOriginDir)
-

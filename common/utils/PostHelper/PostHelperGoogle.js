@@ -38,6 +38,7 @@ class PostHelperGoogle extends PostHelperBase {
 			{url: API_UTILITY_GET_GOOGLE_SPREADSHEETS, params: {key: postInfo.key}});
 		response.status = resPostApi.status;
 		if(resPostApi.status == STATUS_OK) {
+			// console.log(resPostApi.data);
 			response.posts = resPostApi.data;
 		} else {
 			console.log(`[PostHelperGoogle.js] Failed to getPostMenu:${resPostApi.status}`);
