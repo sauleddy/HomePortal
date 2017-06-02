@@ -35,14 +35,16 @@ class PostTitle extends Component {
 
 class PostPreview extends Component {
   render() {
+    let post = this.props.post;
+    let meta = `Posted by ${post.author} on ${post.date}`;
     return (
       <div className="PostPreview">
         <div className="post-preview">
-          <a role='button' onClick={this.props.onPostClick.bind(null, this.props.postId, this.props.postResource)}>
-            <PostTitle postTitle={this.props.postTitle}/>
-            <PostSubTitle postSubTitle={this.props.postSubTitle}/>
+          <a role='button' onClick={this.props.onPostClick.bind(null, post)}>
+            <PostTitle postTitle={post.title}/>
+            <PostSubTitle postSubTitle={post.subtitle}/>
           </a>
-          <PostMeta postMeta={this.props.postMeta}/>
+          <PostMeta postMeta={meta}/>
         </div>
         <hr />
       </div>
@@ -54,20 +56,16 @@ class PostPreview extends Component {
 class PostPreviewList extends Component {
 
   render() {
+    let posts = this.props.postPreviews;
     let pplistThis = this;
     var postPreviews = [];
-    if(this.props.postPreviews.size > 0) {
-      var values = [];
-      this.props.postPreviews.forEach(function(value, key) {
-        values.push(value);
-      });
-      postPreviews = values.map(function(item, index) {
-        let meta = `Posted by ${item.get('author')} on ${item.get('date')}`
-        return <PostPreview key={item.get('postid')} postId={item.get('postid')} 
-        onPostClick={pplistThis.props.onPostClick} postTitle={item.get('title')} 
-        postSubTitle={item.get('subtitle')} postMeta={meta} postResource={item.get('resource')}/>;
-      });
-    }
+    var values = [];
+    Object.keys(posts).forEach(function (key) {
+      values.push(posts[key]);
+    });
+    postPreviews = values.map(function(item, index) {
+      return <PostPreview key={item.postid} post={item} onPostClick={pplistThis.props.onPostClick} />;
+    });
     return (
       <div>
         {postPreviews}

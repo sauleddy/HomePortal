@@ -27,12 +27,11 @@ class Post extends Component {
   }
   
   componentDidMount(node) {
-    console.log('componentDidMount');
+    // console.log('[Post] componentDidMount');
     this.refs.googledoc.addEventListener('load', this.onIframeLoaded.bind(this));
   }
 
   componentWillUpdate(nextProps, nextState) {
-    // console.log('componentWillUpdate');
     // console.log(nextProps);
 
     this.images.length = 0;
@@ -47,6 +46,16 @@ class Post extends Component {
   }
 
   onIframeLoaded() {
+    /*let myThis = this;
+    setTimeout(function(){
+      var height = myThis.refs.googledoc.contentWindow.document.body.offsetHeight + 50;
+      // const obj = ReactDOM.findDOMNode(this);
+      // console.log(height);
+      myThis.setState({
+        "iFrameHeight": height + 'px'
+      });
+    }, 1000);*/
+
     var height = this.refs.googledoc.contentWindow.document.body.offsetHeight + 50;
     // const obj = ReactDOM.findDOMNode(this);
     // console.log(height);

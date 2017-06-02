@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 import { Posts } from '../../components/List/Posts';
 
 import { 
-  ActionPosts
+  ActionPostPage
 } from '../../actions';
 
 export default connect(
   (state) => ({
-    posts: state['homePage'].getIn(['posts']),
+    posts: state['homePage'].getIn(['posts']).toJS(),
   }),
   (dispatch) => ({
-  	onPostClick: (postid, resource) => (
-  		dispatch(ActionPosts.GetPost(dispatch, postid, resource))
-    ),
+  	onPostClick: (post) => {
+      // console.log(post);
+  		dispatch(ActionPostPage.Goto(dispatch, {post: post}));
+  	},
   })
 )(Posts);
 

@@ -4,8 +4,8 @@ import { Post } from '../../components/List/Posts';
 
 export default connect(
   (state) => ({
-    docsUrl: state['postPage'].getIn(['post', 'docsUrl']),
-    resource: state['postPage'].getIn(['post', 'resource']),
+    docsUrl: state['postPage'].getIn(['docsUrl']),
+    resource: state['postPage'].getIn(['resource']),
   }),
   (dispatch) => ({
   })

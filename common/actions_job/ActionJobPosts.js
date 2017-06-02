@@ -43,11 +43,11 @@ class ActionJobPosts extends ActionJobBase {
     if(this.myStorage === undefined || this.PostHelper === undefined) {
       try {
         let response = await getCredential();
-        console.log(response);
+        // console.log(response);
         if(response) {
           let authInfo = { accessKeyId:response.credential.aws_access_key_id
             , secretAccessKey:response.credential.aws_secret_access_key };
-          console.log(authInfo);
+          // console.log(authInfo);
           this.myStorage = new StorageAWS(authInfo);
           this.PostHelper = new PostHelperGoogle(this.myStorage);  
         }
@@ -72,51 +72,27 @@ class ActionJobPosts extends ActionJobBase {
     } catch (e) {
       console.log(`[ActionJobPosts.js] GetPostMenu exception`);
     }
-
-    /*this.PostHelper.getPostMenu({key: GOOGLEDRIVE_POST_MENU_ID})
-    .then(function (response) {
-      // console.log(response);
-      if(response.status == STATUS_OK) {
-        dispatch(ActionHomePage.UpdatePosts({ posts: response.posts }));
-      } else {
-        dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
-      }
-    });*/
   }
 
-  async GetPost(dispatch, postid, resource) {
-    console.log(`[ActionJobPosts] GetPost postid:${postid} resource:${resource}`);
+  async GetPost(dispatch, post) {
+    console.log(`[ActionJobPosts] GetPost:`);
+    console.log(post);
 
     try {
       await this.InitHelper();
-      let response = await this.PostHelper.getPostResources({contentkey: postid, imagekey:resource});
-      // console.log(response);
+      let response = await this.PostHelper.getPostResources({contentkey: post.postid, imagekey:post.resource});
+      console.log(response);
       if(response.status == STATUS_OK) {
         let result = {status: STATUS_OK, post: {}};
-        result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${postid}`;
+        result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${post.postid}`;
         result.post.resource = response.post.resource;
-        dispatch(ActionPostPage.Update({ post: result.post }));
-        browserHistory.push('/post');
+        dispatch(ActionPostPage.UpdateContent({ post: result.post }));
       } else {
         dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
       }
     } catch (e) {
       console.log(`[ActionJobPosts.js] GetPost exception`);
     }
-
-    /*this.PostHelper.getPostResources({contentkey: postid, imagekey:resource})
-    .then(function (response) {
-      // console.log(response);
-      if(response.status == STATUS_OK) {
-        let result = {status: STATUS_OK, post: {}};
-        result.post.docsUrl = `${API_UTILITY_GET_GOOGLE_DOCS}/${postid}`;
-        result.post.resource = response.post.resource;
-        dispatch(ActionPostPage.Update({ post: result.post }));
-        browserHistory.push('/post');
-      } else {
-        dispatch(ActionModalNormal.Show({ title: Warning, content:`status:${response.status}` }));
-      }
-    });*/
   }
 
 };

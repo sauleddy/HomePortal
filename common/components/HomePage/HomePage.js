@@ -5,10 +5,16 @@ class HomePage extends Component {
 
   constructor(props) {
     super(props);
+    console.log("[HomePage] constructor");
+  }
+
+  componentWillMount() {
+    console.log("[HomePage] componentWillMount");
+    this.props.onComponentWillMount();
   }
 
   componentDidMount(node) {
-    // console.log("[HomePage] componentDidMount");
+    console.log("[HomePage] componentDidMount");
     this.props.onComponentDidMount(node);
   }
 

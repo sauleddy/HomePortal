@@ -2,8 +2,7 @@ import { handleActions } from 'redux-actions';
 import { HomePageState } from '../constants/Models'
 
 import {
-  LOGIN_PAGE_SET_EMAIL,
-  LOGIN_PAGE_SET_PW
+  HOME_PAGE_UPDATE_POSTS,
 } from '../constants/ActionTypes';
 
 const reducerHomePage = handleActions({
